@@ -3,14 +3,6 @@ use std::time::Duration;
 
 use super::notify::send_notifications;
 
-pub fn start_timer(sleeptime: Duration) {
-    sleep(sleeptime);
-    send_notifications(
-        "🚓 start timer",
-        "example"
-    );
-}
-
 pub fn tomato() {
     sleep(Duration::from_millis(60*25));
     send_notifications(
