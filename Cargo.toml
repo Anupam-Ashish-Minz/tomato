@@ -9,3 +9,5 @@ edition = "2018"
 [dependencies]
 clap = "2.33.3"
 notify-rust = "4.5.0"
+libpulse-binding = "2.23.1"
+libpulse-simple-binding = "2.23.0"
