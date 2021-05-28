@@ -20,7 +20,15 @@ pub fn play_something() {
         None,                // Use default channel map
         None                 // Use default buffering attributes
     ).unwrap();
-    let data: &mut [u8] = &mut [60];
-    let res = s.read(data);
-    println!("res {:?}", res);
+
+    let mut data = [0; 1024];
+    let res = s.read(&mut data);
+
+    match res {
+        Ok(_) => {
+        },
+        Err(err) => {
+            println!("error {}", err);
+        }
+    };
 }
