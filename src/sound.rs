@@ -1,6 +1,6 @@
-use libpulse_simple_binding::Simple;
-use libpulse_binding::stream::Direction;
-use libpulse_binding::sample::{ Spec, Format };
+use psimple::Simple;
+use pulse::stream::Direction;
+use pulse::sample::{Spec, Format};
 
 pub fn play_something() {
     let spec = Spec {
@@ -12,7 +12,7 @@ pub fn play_something() {
 
     let s = Simple::new(
         None,                // Use the default server
-        "FooApp",            // Our application’s name
+        "audacious",            // Our application’s name
         Direction::Playback, // We want a playback stream
         None,                // Use the default device
         "Music",             // Description of our stream
@@ -21,14 +21,26 @@ pub fn play_something() {
         None                 // Use default buffering attributes
     ).unwrap();
 
-    let mut data = [0; 1024];
-    let res = s.read(&mut data);
+    let mut buf = [0; 1024];
+    let out = s.read(&mut buf);
 
-    match res {
-        Ok(_) => {
-        },
-        Err(err) => {
-            println!("error {}", err);
-        }
-    };
+    match out {
+        Ok(_) => {},
+        Err(e) => println!("Error {}", e)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*; 
+
+    #[test]
+    fn test_sound() {
+        let spec = Spec {
+            format: Format::S16NE,
+            channels: 2,
+            rate: 44100,
+        };
+        assert!(spec.is_valid());
+    }
 }
