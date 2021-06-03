@@ -652,54 +652,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "libpulse-binding"
-version = "2.23.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "db951f37898e19a6785208e3a290261e0f1a8e086716be596aaad684882ca8e3"
-dependencies = [
- "bitflags 1.2.1",
- "libc",
- "libpulse-sys",
- "num-derive",
- "num-traits",
- "winapi",
-]
-
-[[package]]
-name = "libpulse-simple-binding"
-version = "2.23.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a574975292db859087c3957b9182f7d53278553f06bddaa2099c90e4ac3a0ee0"
-dependencies = [
- "libpulse-binding",
- "libpulse-simple-sys",
- "libpulse-sys",
-]
-
-[[package]]
-name = "libpulse-simple-sys"
-version = "1.16.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "468cf582b7b022c0d1b266fefc7fc8fa7b1ddcb61214224f2f105c95a9c2d5c1"
-dependencies = [
- "libpulse-sys",
- "pkg-config",
-]
-
-[[package]]
-name = "libpulse-sys"
-version = "1.18.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cf17e9832643c4f320c42b7d78b2c0510f45aa5e823af094413b94e45076ba82"
-dependencies = [
- "libc",
- "num-derive",
- "num-traits",
- "pkg-config",
- "winapi",
-]
-
-[[package]]
 name = "lock_api"
 version = "0.4.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1397,8 +1349,6 @@ name = "tomato"
 version = "0.1.0"
 dependencies = [
  "clap",
- "libpulse-binding",
- "libpulse-simple-binding",
  "notify-rust",
  "rodio",
 ]
