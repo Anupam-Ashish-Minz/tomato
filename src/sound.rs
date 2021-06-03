@@ -1,3 +1,4 @@
+use std::fs;
 use psimple::Simple;
 use pulse::stream::Direction;
 use pulse::sample::{Spec, Format};
@@ -12,7 +13,7 @@ pub fn play_something() {
 
     let s = Simple::new(
         None,                // Use the default server
-        "audacious",            // Our application’s name
+        "random",            // Our application’s name
         Direction::Playback, // We want a playback stream
         None,                // Use the default device
         "Music",             // Description of our stream
@@ -21,26 +22,17 @@ pub fn play_something() {
         None                 // Use default buffering attributes
     ).unwrap();
 
-    let mut buf = [0; 1024];
-    let out = s.read(&mut buf);
+    let music_data = fs::read("assets/swiftly-610.mp3")
+        .expect("failed to read music file");
 
+    let out = s.write(&music_data);
     match out {
-        Ok(_) => {},
-        Err(e) => println!("Error {}", e)
+        Ok(data) => println!("ok {:?}", data),
+        Err(e) => println!("error {}", e)
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*; 
-
-    #[test]
-    fn test_sound() {
-        let spec = Spec {
-            format: Format::S16NE,
-            channels: 2,
-            rate: 44100,
-        };
-        assert!(spec.is_valid());
-    }
 }
