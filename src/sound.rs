@@ -1,38 +1,16 @@
-use std::fs;
-use psimple::Simple;
-use pulse::stream::Direction;
-use pulse::sample::{Spec, Format};
+use std::fs::File;
+use std::io::BufReader;
+use rodio::{Decoder, OutputStream, source::Source};
 
 pub fn play_something() {
-    let spec = Spec {
-        format: Format::S16NE,
-        channels: 2,
-        rate: 44100,
-    };
-    assert!(spec.is_valid());
+    let (_stream, stream_handle) = OutputStream::try_default().unwrap();
+    let file = BufReader::new(File::open("assets/swiftly-610.mp3").unwrap());
+    let source = Decoder::new(file).unwrap();
+    let res = stream_handle.play_raw(source.convert_samples());
+    std::thread::sleep(std::time::Duration::from_secs(5));
 
-    let s = Simple::new(
-        None,                // Use the default server
-        "random",            // Our application’s name
-        Direction::Playback, // We want a playback stream
-        None,                // Use the default device
-        "Music",             // Description of our stream
-        &spec,               // Our sample format
-        None,                // Use default channel map
-        None                 // Use default buffering attributes
-    ).unwrap();
-
-    let music_data = fs::read("assets/swiftly-610.mp3")
-        .expect("failed to read music file");
-
-    let out = s.write(&music_data);
-    match out {
-        Ok(data) => println!("ok {:?}", data),
-        Err(e) => println!("error {}", e)
+    match res {
+        Ok(_) => {},
+        Err(e) => println!("error in sound {}", e)
     }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*; 
 }

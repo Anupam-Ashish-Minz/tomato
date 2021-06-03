@@ -11,3 +11,4 @@ clap = "2.33.3"
 notify-rust = "4.5.0"
 psimple = { package = "libpulse-simple-binding", version = "2.23.0" }
 pulse = { package = "libpulse-binding", version = "2.23.1" }
+rodio = "0.14.0"
